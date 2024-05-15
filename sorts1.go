@@ -9,6 +9,12 @@ func main(){
 	bubble_sort(slice1)
 	insertion_sort(slice1)
 	selection_sort(slice1)
+	fmt.Println("=======")
+	array1:=[]int{1,5,83,99,2,3,1,95}
+	fmt.Println("Array: ",array1)
+	bubble_sort(array1)
+	insertion_sort(array1)
+	selection_sort(array1)
 }
 func bubble_sort(slice []int){
 	fmt.Println("Bubble Sort ******")
