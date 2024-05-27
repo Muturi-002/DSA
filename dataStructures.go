@@ -14,4 +14,5 @@ func main(){
 	fmt.Println(slice1[4:])
 	mapping:= map[int]string{1:"ball",2:"kick",3:"catch",4:"fetch",5:"run",6:"sprint"}
 	fmt.Println(mapping)
+	
 }
