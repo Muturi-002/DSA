@@ -1,7 +1,7 @@
 package main
 import (
 	"fmt"
-	//"math/rand"
+	//"math/rand"....
 )
 
 func main() {

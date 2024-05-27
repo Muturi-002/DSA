@@ -18,6 +18,7 @@ func binarySearch(slice []int, value int) int {
 			}
 		}
 	}
+	
 	fmt.Println("Newly sorted slice: ",slice)
 	f:=0
 	l:=len(slice)-1

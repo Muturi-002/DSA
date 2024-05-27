@@ -3,7 +3,7 @@ import "fmt"
 func main() {
 	s:=[]int{33,42,12,99,372,92,65,8}
 	fmt.Println("Slice: ", s)
-	//s= quickSort(s)
+	//s= quickSort(s)...
 	s=quick_sort(s)
 	fmt.Println("Newly sorted slice: ",s)
 }

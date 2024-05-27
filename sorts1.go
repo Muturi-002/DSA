@@ -47,6 +47,7 @@ func insertion_sort(slice []int){
 	}
 	fmt.Println("newly sorted array: ",slice)
 }
+
 func selection_sort(slice []int){
 	fmt.Println("Selection sort ****")
 	sorted_slice:=[]int{}

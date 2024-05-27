@@ -4,6 +4,7 @@ import "fmt"
 type stack struct{
 	items []int
 }
+
 func (s *stack)push(i int){
 	s.items=append(s.items,i)
 }
