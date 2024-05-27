@@ -30,6 +30,7 @@ func (s *stack)peek(){
 }
 func main(){
 	var myStack stack
+	//alternative declaration of stack-> myStack:=stack{}
 	fmt.Println(myStack)
 	myStack.push(8)
 	myStack.push(9)
