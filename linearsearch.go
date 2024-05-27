@@ -4,6 +4,7 @@ import (
 	//"math/rand"....
 )
 
+
 func main() {
 	s:= []int{66,33,22,92,1,29,73}
 	var find int

@@ -7,6 +7,7 @@ func main() {
 	s=quick_sort(s)
 	fmt.Println("Newly sorted slice: ",s)
 }
+
 /* func merge_sort(slice1 []int)  []int{
 	length:=len(slice1)
 	return merge_sort_recursion(slice1,0,length-1)
