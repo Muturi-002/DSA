@@ -18,8 +18,10 @@ func binarySearch(slice []int, value int) int {
 			}
 		}
 	}
-
-	
+	if len(slice)==0{
+		fmt.Println("Empty slice. Value not found")
+		return value
+	}
 	fmt.Println("Newly sorted slice: ",slice)
 	f:=0
 	l:=len(slice)-1
@@ -27,10 +29,10 @@ func binarySearch(slice []int, value int) int {
 	fmt.Println("Middle element:",slice[mid])
 	if len(slice)==2{
 		if slice[f]==value{
-			fmt.Println("Found!")
+			
 			return value
 		}else if slice[l]==value{
-			fmt.Println("Found!")
+			
 			return value
 		}else{
 			fmt.Println("Not found")
@@ -42,13 +44,14 @@ func binarySearch(slice []int, value int) int {
 			if slice[mid]==value{
 				fmt.Println("Found!")
 			}else if value<slice[mid]{
-				fmt.Println("Discard greater values!")
+				
 				return binarySearch(slice[:mid],value)
 			}else{
-				fmt.Println("Discard less values!")
+				
 				return binarySearch(slice[mid:],value)
 			}
 		}
 	}
+	fmt.Print("Found: ")
 	return value
 }
