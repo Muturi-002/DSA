@@ -17,9 +17,9 @@ func (l *linkedList)insertAtBegin (n *node){//pointer receiver
 	l.length++
 }
 func (l linkedList) printListData(){//value receiver
-	fmt.Println("Linked list data")
+	fmt.Print("\nLinked list data: ")
 	for l.length!=0{
-		fmt.Print(" ",l.head.data,"\n")
+		fmt.Print(" ",l.head.data,"\t")
 		l.head=l.head.next
 		l.length--
 	}
@@ -60,5 +60,6 @@ func main() {
 	myL_list.printListData()
 	myL_list.deleteWithValue(30)
 	myL_list.printListData()
-
+	fmt.Println("\nLast node address: ",myL_list.head)
+	fmt.Println("Last node data: ",myL_list.head.data)
 }
