@@ -1,11 +1,32 @@
 package main
-import "fmt"
+import (
+	"fmt"
+	"time"
+	"math/rand")
 func main() {
-	s:=[]int{33,42,12,99,372,92,65,8}
-	fmt.Println("Slice: ", s)
+	//s:=[]int{33,42,12,99,372,92,65,8}
+	//fmt.Println("Slice: ", s)
+	//t:=time.Now()
 	//s= quickSort(s)...
-	s=quick_sort(s)
-	fmt.Println("Newly sorted slice: ",s)
+	//s=quick_sort(s)
+	//fmt.Println("Newly sorted slice: ",s)
+	//fmt.Println("time taken: ",time.Since(t))
+	var slice []int
+	var sizeArray int
+	fmt.Println("Enter size of array: ",sizeArray)
+	fmt.Scanln(&sizeArray)
+	for i:=0;i<sizeArray;i++{
+		randomNo:= rand.Intn(100)
+		if !contains(slice,randomNo) {
+			slice=append(slice,randomNo)
+		}
+	}
+	fmt.Println("Slice: ", slice)
+	t:=time.Now()
+	//s= quickSort(s)...
+	slice=quick_sort(slice)
+	fmt.Println("Newly sorted slice: ",slice)
+	fmt.Println("Time taken: ",time.Since(t))
 }
 
 /* func merge_sort(slice1 []int)  []int{
@@ -137,4 +158,12 @@ func quickSort(slice []int) []int {
 	}
 
 	return append(append(quickSort(leftSlice), pivot), quickSort(rightSlice)...)
+}
+func contains(slice []int, numbers int)bool{
+	for _,v:=range slice{
+		if v==numbers{
+			return true
+		}
+	}
+	return false
 }
