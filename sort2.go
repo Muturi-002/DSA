@@ -12,7 +12,7 @@ func main() {
 	//fmt.Println("Newly sorted slice: ",s)
 	//fmt.Println("time taken: ",time.Since(t))
 	var slice []int
-	var sizeArray int
+	var sizeArray,choice int
 	fmt.Println("Enter size of array: ",sizeArray)
 	fmt.Scanln(&sizeArray)
 	for i:=0;i<sizeArray;i++{
@@ -27,6 +27,12 @@ func main() {
 	slice=quick_sort(slice)
 	fmt.Println("Newly sorted slice: ",slice)
 	fmt.Println("Time taken: ",time.Since(t))
+	fmt.Println("Do you wish to continue? Press 1 for 'Yes', any other number for 'No'.")
+	fmt.Scanln(&choice)
+	if choice==1{
+		main()
+	}
+	
 }
 
 /* func merge_sort(slice1 []int)  []int{
