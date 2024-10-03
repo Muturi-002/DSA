@@ -16,7 +16,7 @@ func main() {
 	fmt.Println("Enter size of array: ",sizeArray)
 	fmt.Scanln(&sizeArray)
 	for i:=0;i<sizeArray;i++{
-		randomNo:= rand.Intn(100)
+		randomNo:= rand.Intn(100000)
 		if !contains(slice,randomNo) {
 			slice=append(slice,randomNo)
 		}
