@@ -7,14 +7,7 @@ import (
 func main() {
 	//s:=[]int{33,42,12,99,372,92,65,8}
 	//fmt.Println("Slice: ", s)
-	//t:=time.Now()
-	//s= quickSort(s)...
-	//s=quick_sort(s)
-	//fmt.Println("Newly sorted slice: ",s)
-	//fmt.Println("time taken: ",time.Since(t))
 	var sizeArray,slice []int
-	//var choice int
-	//fmt.Println("Enter size of array: ",sizeArray)
 	for j:=5;j<=30;j+=5{
 		sizeArray=append(sizeArray,j)
 	}
