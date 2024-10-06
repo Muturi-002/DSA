@@ -2,7 +2,8 @@ package main
 import (
 	"fmt"
 	"time"
-	"math/rand")
+	"math/rand"
+)
 func main() {
 	//s:=[]int{33,42,12,99,372,92,65,8}
 	//fmt.Println("Slice: ", s)
@@ -11,26 +12,26 @@ func main() {
 	//s=quick_sort(s)
 	//fmt.Println("Newly sorted slice: ",s)
 	//fmt.Println("time taken: ",time.Since(t))
-	var slice []int
-	var sizeArray,choice int
-	fmt.Println("Enter size of array: ",sizeArray)
-	fmt.Scanln(&sizeArray)
-	for i:=0;i<sizeArray;i++{
-		randomNo:= rand.Intn(100000)
-		if !contains(slice,randomNo) {
-			slice=append(slice,randomNo)
-		}
+	var sizeArray,slice []int
+	//var choice int
+	//fmt.Println("Enter size of array: ",sizeArray)
+	for j:=5;j<=30;j+=5{
+		sizeArray=append(sizeArray,j)
 	}
-	fmt.Println("Slice: ", slice)
-	t:=time.Now()
-	//s= quickSort(s)...
-	slice=quick_sort(slice)
-	fmt.Println("Newly sorted slice: ",slice)
-	fmt.Println("Time taken: ",time.Since(t))
-	fmt.Println("Do you wish to continue? Press 1 for 'Yes', any other number for 'No'.")
-	fmt.Scanln(&choice)
-	if choice==1{
-		main()
+	fmt.Println("Sizes for test: ",sizeArray)
+	for _, sizeArray:=range sizeArray {
+		fmt.Println("Size of slice: ",sizeArray)
+		for i:=0;i<sizeArray;i++{
+			randomNo:= rand.Intn(1000)
+			if !contains(slice,randomNo) {
+				slice=append(slice,randomNo)
+			}
+		}
+		fmt.Println("Slice: ", slice)
+		t:=time.Now()
+		slice=quick_sort(slice)
+		fmt.Println("Newly sorted slice: ",slice)
+		fmt.Println("Time taken: ",time.Since(t))
 	}
 	
 }
