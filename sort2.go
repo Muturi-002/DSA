@@ -5,8 +5,6 @@ import (
 	"math/rand"
 )
 func main() {
-	//s:=[]int{33,42,12,99,372,92,65,8}
-	//fmt.Println("Slice: ", s)
 	var sizeArray,slice []int
 	for j:=5;j<=30;j+=5{
 		sizeArray=append(sizeArray,j)
