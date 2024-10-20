@@ -21,8 +21,9 @@ func main() {
 		fmt.Println("Slice: ", slice)
 		t:=time.Now()
 		slice=quick_sort(slice)
-		fmt.Println("Newly sorted slice: ",slice)
 		fmt.Println("Time taken: ",time.Since(t))
+		fmt.Println("Newly sorted slice: ",slice)
+		fmt.Println("==============")
 	}
 	
 }
