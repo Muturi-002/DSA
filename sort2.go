@@ -33,20 +33,19 @@ func contains(slice []int, numbers int) bool { //serves both quick_sort and merg
 	return false
 }
 func mergesort(slice []int) []int{
-	l,r:= 0,len(slice)-1
-	if len(slice)==1{
-		fmt.Println("Already sorted")
+	//l,r:= 0,len(slice)-1
+	if len(slice)<=1{
 		return slice
 	}
-	mid:= (l+r)/2
-	left_slice:=slice[:mid]
-	right_slice:=slice[mid:]
+	mid:= len(slice)/2
+	left_slice:=mergesort(slice[:mid])
+	right_slice:=mergesort(slice[mid:])
 	
 	return merge(left_slice,right_slice)
 }
 func merge(left,right []int) []int{
 	left_index, right_index:= 0,0 //mark the first index of the prototype slices respectively
-	newSlice:= make([]int, len(left)+len(right))//create a new  sorted slice
+	newSlice:= make([]int, 0, len(left)+len(right))//create a new  sorted slice
 	for left_index<len(left) && right_index<len(right){
 		if left[left_index]<=right[right_index]{
 			newSlice= append(newSlice, left[left_index])
@@ -56,7 +55,8 @@ func merge(left,right []int) []int{
 			right_index++
 		}
 	}
-
+	newSlice = append(newSlice, left[left_index:]...)
+	newSlice = append(newSlice, right[right_index:]...)
 	return newSlice
 }
 func main() {
