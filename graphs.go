@@ -1,4 +1,4 @@
-//from the youtube link https://youtu.be/D3oPCqn_HO8
+//Guided by the youtube video https://youtu.be/D3oPCqn_HO8
 package main
 import (
 	"fmt"
@@ -20,18 +20,30 @@ func (g *Graph) AddVertex(k int) {
 	}
 }
 func (g *Graph) AddEdge(from, to int){//the variables represent the root and destination vertices respectively
-	fromVertex:= g.getVertex(from)
-	toVertex:=g.getVertex(to)
-	err:= errors.New("Invalid edge creation of")
-	//checking for errors
-	//empty vertices
-	defer recover()
-	if fromVertex==nil || toVertex==nil{
-		fmt.Println(err, "",from,"->",to)
-		panic(err)
+	fromVertex := g.getVertex(from)
+	toVertex := g.getVertex(to)
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("Recovered from error:", r)
+		}
+	}()
+	if fromVertex == nil || toVertex == nil {//check if any or all of the vertices vertices do not exist
+		err := errors.New("'invalid edge creation'")
+		fmt.Print(err,from,"-->",to,".")
+		if fromVertex == nil {
+			fmt.Print("Vertex ",from," does not exist\n")
+		}else{
+			fmt.Print("Vertex ",to," does not exist\n")
+		}
+		panic(err)	
+	}else if contains(fromVertex.neighbours, to) {//checks if there is an existing edge between the two vertices
+		err := errors.New("'Edge already exists'")
+		fmt.Print(err,from,"-->",to,"\n")
+		panic(err)	
 	}
-	fromVertex.neighbours= append(fromVertex.neighbours,toVertex)
-
+	
+	fromVertex.neighbours = append(fromVertex.neighbours, toVertex)
+	
 }
 func (g *Graph) Print(){
 	//print out each vertex and its neighbours
@@ -71,6 +83,9 @@ func main() {
 	graph1.Print()
 	graph1.AddVertex(5)
 	graph1.AddEdge(1,2)
-	graph1.AddEdge(7,5)
+	graph1.Print()
+	graph1.AddEdge(5,5)
+	graph1.Print()
+	graph1.AddEdge(5,7)
 	graph1.Print()
 }
