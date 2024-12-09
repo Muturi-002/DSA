@@ -1,25 +1,41 @@
+/*This is a modified version of graphs.go.
+As the file's name suggests, this code seeks to create a weighted graph successfully.
+*/
 package main
 import (
 	"fmt"
 	"errors"
+	"strconv"
 )
 type Graph struct {
 	vertices []*Vertex
 }
 type Vertex struct {
-	key int
+	key string
 	neighbours []*Vertex//adjacent vertices conneected by an edge
-	weight int//shows weight of edge
+	w []*Edge
 }
-func (g *Graph) AddVertex(k int) {
+type Edge struct {
+	weight int//weight of an edge
+}
+func (g *Graph) AddVertex(k string) {
 	if contains(g.vertices, k) {
-		err := fmt.Errorf("vertex %v not added because it already exists", k)
+		err := fmt.Errorf("vertex %s not added because it already exists", k)
 		fmt.Println(err.Error())
 	} else {
 		g.vertices = append(g.vertices, &Vertex{key: k})
 	}
 }
-func (g *Graph) AddEdge(from, to, distance int){//the variables represent the root and destination vertices respectively
+func contains(s []*Vertex, k string) bool {
+	for _,v:=range s {
+		vKey:=strconv.Itoa(v.key)
+		if k==vKey {
+			return true
+		}
+	}
+	return false
+}
+func (g *Graph) AddEdge(from, to string, distance int) { // the variables represent the root and destination vertices respectively
 	fromVertex := g.getVertex(from)
 	toVertex := g.getVertex(to)
 	defer func() {
@@ -27,64 +43,67 @@ func (g *Graph) AddEdge(from, to, distance int){//the variables represent the ro
 			fmt.Println("Recovered from error:", r)
 		}
 	}()
-	if fromVertex == nil || toVertex == nil {//check if any or all of the vertices vertices do not exist
+	if fromVertex == nil || toVertex == nil { // check if any or all of the vertices do not exist
 		err := errors.New("'invalid edge creation'")
-		fmt.Print(err,from,"-->",to,".")
+		fmt.Print(err, from, "-->", to, ".")
 		if fromVertex == nil {
-			fmt.Print("Vertex ",from," does not exist\n")
-		}else{
-			fmt.Print("Vertex ",to," does not exist\n")
+			fmt.Print("Vertex ", from, " does not exist\n")
+		} else {
+			fmt.Print("Vertex ", to, " does not exist\n")
 		}
-		panic(err)	
-	}else if contains(fromVertex.neighbours, to) {//checks if there is an existing edge between the two vertices
+		panic(err)
+	} else if contains(fromVertex.neighbours, to) { // checks if there is an existing edge between the two vertices
 		err := errors.New("'Edge already exists'")
-		fmt.Print(err,from,"-->",to,"\n")
-		panic(err)	
+		fmt.Print(err, from, "-->", to, "\n")
+		panic(err)
 	}
-	
+
 	fromVertex.neighbours = append(fromVertex.neighbours, toVertex)
-	
+	// Add the edge with weight
+	edge := Edge{weight: distance}
+	fmt.Printf("Edge added: %s --(%d)--> %s\n", from, edge.weight, to)
 }
-func (g *Graph) Print(){
-	//print out each vertex and its neighbours
-	for _,v:=range g.vertices {
-		fmt.Print("Vertex ",v.key,": ")
-		for _,v:=range v.neighbours {
-			fmt.Printf("%v (%v)",v.key,v.neighbours.weight)
-		}
-		fmt.Println()
-	}
-	fmt.Println()
-}
-func (g *Graph) getVertex(k int) *Vertex { //checks for a vertex in the graph
+func (g *Graph) getVertex(k string) *Vertex { //checks for a vertex in the graph
 	for i, v:=range g.vertices{
-		if v.key==k{
+		vKey:=strconv.Itoa(v.key)
+		if vKey==k{
 			return g.vertices[i]
 		}
 	}
 	return nil
 }
-func contains(s []*Vertex, k int) bool {
-	for _,v:=range s {
-		if k==v.key {
-			return true
+func (g *Graph) Print() {
+	// print out each vertex and its neighbours with weights
+	for _, v := range g.vertices {
+		fmt.Print("Vertex ", v.key, ": ")
+		for _, n := range v.neighbours {
+			// Find the edge weight
+			for _, edge := range g.edges {
+				if (edge.from == v.key && edge.to == n.key) || (edge.from == n.key && edge.to == v.key) {
+					fmt.Printf("%v (%d) ", n.key, edge.weight)
+				}
+			}
 		}
+		fmt.Println()
 	}
-	return false
+	fmt.Println()
 }
+
+
 func main(){
 	defer fmt.Println("---Weighted Graphs---")
 	g := Graph{}
-	for i:=0;i<5;i++ {
-		g.AddVertex(i)
+	vertices:=[]string{"A","B","C","D","E"}
+	for _,r:=range vertices{
+		g.AddVertex(r)
 	}
 	fmt.Println("Vertices of graph:")
 	fmt.Println(g)
 	g.Print()
-	g.AddEdge(0, 1, 5)
-	g.AddEdge(0, 2, 10)
-	g.AddEdge(1, 2, 6)
-	g.AddEdge(1, 3, 15)
-	g.AddEdge(2, 3, 20)
+	g.AddEdge("A", "B", 5)
+	g.AddEdge("A", "C", 10)
+	g.AddEdge("B", "C", 6)
+	g.AddEdge("C", "D", 15)
+	g.AddEdge("C", "D", 20)
 	g.Print()
 }
