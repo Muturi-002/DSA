@@ -1,3 +1,4 @@
+//This file contains code for both quicksort and mergesort algorithms.
 package main
 
 import (
