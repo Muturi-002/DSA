@@ -72,14 +72,14 @@ func (g *Graph) getVertex(k string) *Vertex { //checks for a vertex in the graph
 	}
 	return nil
 }
-func (g *Graph) Print() {
+func (g Graph) Print() {
 	// print out each vertex and its neighbours with weights
 	for _, v := range g.vertices {
 		fmt.Print("Vertex ", v.key, ": ")
-		for _, n := range v.neighbours {
+		for i, n := range v.neighbours {
 			// Find the edge weight
-			for _, edge := range g.edges {
-				fmt.Printf("%v (%d) ", n.key, edge.weight)
+			if i < len(v.w) {//the weight of the edge is represented by w, from the Edge struct
+				fmt.Printf("(%d) %v ", v.w[i].weight, n.key)
 			}
 		}
 		fmt.Println()
@@ -102,6 +102,6 @@ func main(){
 	g.AddEdge("A", "C", 10)
 	g.AddEdge("B", "C", 6)
 	g.AddEdge("C", "D", 15)
-	g.AddEdge("C", "D", 20)
+	g.AddEdge("D", "E", 20)
 	g.Print()
 }
