@@ -5,10 +5,10 @@ package main
 import (
 	"fmt"
 	"errors"
-	"strconv"
 )
 type Graph struct {
 	vertices []*Vertex
+	edges []*Edge
 }
 type Vertex struct {
 	key string
@@ -28,8 +28,7 @@ func (g *Graph) AddVertex(k string) {
 }
 func contains(s []*Vertex, k string) bool {
 	for _,v:=range s {
-		vKey:=strconv.Itoa(v.key)
-		if k==vKey {
+		if k==v.key {
 			return true
 		}
 	}
@@ -61,12 +60,13 @@ func (g *Graph) AddEdge(from, to string, distance int) { // the variables repres
 	fromVertex.neighbours = append(fromVertex.neighbours, toVertex)
 	// Add the edge with weight
 	edge := Edge{weight: distance}
+	fromVertex.w = append(fromVertex.w, &edge)//dereference the Edge{} pointer
+	g.edges = append(g.edges, &edge)//dereference the Edge{} pointer
 	fmt.Printf("Edge added: %s --(%d)--> %s\n", from, edge.weight, to)
 }
 func (g *Graph) getVertex(k string) *Vertex { //checks for a vertex in the graph
 	for i, v:=range g.vertices{
-		vKey:=strconv.Itoa(v.key)
-		if vKey==k{
+		if v.key==k{
 			return g.vertices[i]
 		}
 	}
@@ -79,9 +79,7 @@ func (g *Graph) Print() {
 		for _, n := range v.neighbours {
 			// Find the edge weight
 			for _, edge := range g.edges {
-				if (edge.from == v.key && edge.to == n.key) || (edge.from == n.key && edge.to == v.key) {
-					fmt.Printf("%v (%d) ", n.key, edge.weight)
-				}
+				fmt.Printf("%v (%d) ", n.key, edge.weight)
 			}
 		}
 		fmt.Println()
