@@ -15,5 +15,5 @@ Include: binarysearch.go, linearsearch.go
 ADTs include: stacks.go, queues.go, linkedList.go
 
 # Emphasis
-Kindly note that the codes in this repository are majorlly self-taught. They are not done by an expert in the time before this and after this committed change. This will be seen in the files dijkstra.go and weightedGraphs.go
+Kindly note that the codes in this repository are majorlly self-taught. They are not done by an expert in the time before this and after this committed change. This will be seen in the files under the dijkstra subdirectory
 
