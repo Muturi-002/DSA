@@ -5,7 +5,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	//d "github.com/Muturi-002/DSA/dijkstra/d2"
 )
 const infinity int= 99999
 var vertCount int//number of vertices in the graph
@@ -89,57 +88,53 @@ func (g Graph) print() {
 	}
 	fmt.Println()
 }
-func Dijkstra(g *Graph,startkey string) {
+func Dijkstra(graph [5][5]int, g *Graph) {
 	fmt.Println("====Dijkstra's Algorithm====")
-	distance := make([]int, len(g.vertices))//creates an array for the shortest distance from the source vertex to the neighbouring vertices
-    visited := make([]bool, len(g.vertices))
-	vertCount= len(g.vertices)
-	for k := 0; k < vertCount; k++ {
-        distance[k] = infinity
-        visited[k] = false
-    }
-
-	start := g.GetVertex(startkey)
-	if start == nil {
-		fmt.Println("Vertex not found")
-		return
-	}
-	var startIndex int//enables the distance between the start vertex and itself to be zero. Setting the distance index as start will create an error.
-	for i, v := range g.vertices {
-		if v == start {
-			startIndex = i
-			break
+	distance:= make([][]int, 5)//stores the distance from the source vertex to the other vertices
+	visited := make([]bool, 5) // stores the visited vertices
+	var src string
+	var srcindex int
+	fmt.Print("Enter the source vertex: ")
+	fmt.Scan(&src); fmt.Println()
+	for i,n:=range g.vertices{
+		if n.key==src{
+			srcindex=i
 		}
 	}
-	distance[startIndex] = 0
+	fmt.Printf("Source vertex: %s. Index: %d\n", src, srcindex)
+	for i := 0; i < 5; i++ {
+		distance[i][i] = infinity
+		visited[i] = false
+	}
 
-    for k := 0; k < vertCount; k++ {
-        m := miniDist(distance, visited)
-        visited[m] = true
+	distance[srcindex][srcindex] = 0
 
-        for l := 0; l < vertCount; l++ {
-			for _, edge := range g.vertices[m].w {
-				//neighbour := g.vertices[m].neighbours[k]
-				if !visited[l] && edge.weight != 0 && distance[m] != infinity &&
-					distance[m]+edge.weight < distance[l] {
-					distance[k] = distance[m] + edge.weight
-				}
+	for i := 0; i < 5-1; i++ {
+		u := miniDist(distance, visited)
+		visited[u] = true
+
+		for v := 0; v < 5; v++ {
+			if !visited[v] && graph[u][v] != 0 && distance[u][u] != infinity && distance[u][u]+graph[u][v] < distance[v][v] {
+				distance[v][v] = distance[u][u] + graph[u][v]
 			}
-            }
-        }
-    fmt.Println("Vertex\t\tDistance from source vertex")
-    for k := 0; k < len(g.vertices); k++ {
-        fmt.Printf("%s\t\t\t%d\n", g.vertices[k], distance[k])
-    }
+		}
+	}
+
+	fmt.Println("Vertex \t Distance from Source")
+	for i := 0; i < 5; i++ {
+		fmt.Printf("%s \t %d\n", g.vertices[i].key, distance[i])
+	}
 }
-func miniDist(distance []int, visited []bool) int {// a method that seeks to find the smallest distance from the source vertex to the neighbouring vertices
+func miniDist(distance [][]int, visited []bool) int {// a method that seeks to find the smallest distance from the source vertex to the neighbouring vertices
     minimum := infinity
     var ind int// stores the index of the vertex with the smallest distance
-    for k := 0; k < 6; k++ {
-        if !visited[k] && distance[k] < minimum {
-            minimum = distance[k]
-            ind = k
-        }
+    for k := 0; k < 5; k++ {
+		for j:=0;j<5;j++{
+			if !visited[j] && distance[k][j] < minimum {
+				minimum = distance[k][j]
+				ind = k
+			}
+		}
     }
     return ind
 }
@@ -156,10 +151,15 @@ func main(){
 	g.addEdge("B", "C", 6)
 	g.addEdge("C", "D", 15)
 	g.addEdge("D", "E", 20)
+	g.addEdge("E", "B", 2)
 	g.print()
-	var src string
-	fmt.Printf("Choose the start vertex: ")
-	fmt.Scanf("%s", &src)
-	fmt.Println("\nShortest path from ", src, " to other vertices:")
-	Dijkstra(&g, src)
+	graph := [5][5]int{//from the graph defined
+		{0, 5, 10, 0, 0},
+		{5, 0, 6, 0, 0},
+		{10, 6, 0, 15, 0},
+		{0, 0, 15, 0, 20},
+		{0, 2, 0, 20, 0},
+	}
+	fmt.Println("Graph matrix: ",graph)
+	Dijkstra(graph,&g)
 }
